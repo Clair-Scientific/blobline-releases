@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download Blobline · Clair Scientific</title>
+<meta name="description" content="Download Blobline, Clair Scientific's desktop app for measuring the refractive index and dense-phase concentrations of biomolecular condensates with the Clair Z1.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142328'/%3E%3Cpath d='M14 46 A18 18 0 0 1 50 46 Z' fill='%23c9fac8'/%3E%3Crect x='10' y='49' width='44' height='4' rx='2' fill='%23c9fac8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- The site's own type is ABC Diatype (licensed for clairscientific.com); Geist stands in, as in the app. -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* Colours, corners and buttons from www.clairscientific.com (its Webflow stylesheet). */
+  :root {
+    --teal-900: #142328;
+    --grey-700: #40404b;
+    --grey-500: #82828c;
+    --grey-200: #d2d7d7;
+    --grey-50: #fcfcfc;
+    --green-100: #e6fae6;
+    --green-200: #c9fac8;
+    --green-500: #41cc8b;
+    --yellow-100: #fcfce6;
+    --radius: 6px;
+    --sans: "Geist", "ABC Diatype", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", "ABC Diatype Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: #fff; }
+  body { margin: 0; overflow-x: hidden; font-family: var(--sans); color: var(--teal-900); background: #fff; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--grey-200); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
+  .brand svg { height: 22px; width: auto; }
+  .brand svg .hole { fill: #fff; stroke: none; }
+  .brand small { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-500); margin-left: 4px; }
+  .nav a { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--grey-700); }
+  .nav a:hover { color: var(--teal-900); }
+
+  .hero { padding-top: 72px; padding-bottom: 48px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-500); margin: 0 0 18px; }
+  h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.04; letter-spacing: -0.025em; font-weight: 700; margin: 0 0 18px; max-width: 14ch; }
+  .lead { font-size: 19px; color: var(--grey-700); max-width: 56ch; margin: 0 0 36px; }
+
+  .downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 760px; }
+  .card { border: 1px solid var(--grey-200); border-radius: var(--radius); padding: 22px 22px 20px; background: var(--grey-50); }
+  .card.mine { background: var(--green-100); border-color: var(--green-200); }
+  .card h2 { font-size: 20px; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .card .req { font-size: 14px; color: var(--grey-500); margin: 0 0 18px; }
+  .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 0 22px;
+    font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+    color: var(--teal-900); background: transparent; border: 3px solid var(--teal-900); border-radius: 30px; transition: background-color 0.15s; }
+  .button:hover, .button:focus-visible { background: var(--green-200); }
+  .button.solid { background: var(--teal-900); color: #fff; }
+  .button.solid:hover, .button.solid:focus-visible { background: var(--green-200); color: var(--teal-900); }
+  .button[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+  .size { font-family: var(--mono); font-size: 12px; color: var(--grey-500); margin-left: 12px; }
+  .meta { margin: 22px 0 0; font-size: 14px; color: var(--grey-500); }
+  .meta a { color: var(--grey-700); }
+
+  section.block { padding: 56px 0; overflow-wrap: anywhere; border-top: 1px solid var(--grey-200); }
+  section.block h2 { font-size: 28px; letter-spacing: -0.015em; margin: 0 0 20px; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+  .cols h3 { font-size: 17px; margin: 0 0 8px; }
+  .cols ol, .cols ul { margin: 0; padding-left: 20px; color: var(--grey-700); }
+  .cols li { margin-bottom: 6px; }
+  .notes { white-space: pre-wrap; color: var(--grey-700); max-width: 70ch; margin: 0; }
+  .notice { background: var(--yellow-100); border-radius: var(--radius); padding: 14px 18px; color: var(--grey-700); font-size: 15px; margin: 0 0 24px; max-width: 760px; }
+  code { font-family: var(--mono); font-size: 0.86em; background: #f1f3f3; border-radius: 4px; padding: 1px 5px; }
+
+  footer { border-top: 1px solid var(--grey-200); padding: 32px 0 48px; color: var(--grey-500); font-size: 14px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer a { color: var(--grey-700); text-decoration: none; margin-right: 16px; }
+  footer a:hover { color: var(--teal-900); }
+
+  @media (max-width: 600px) {
+    .hero { padding-top: 48px; padding-bottom: 32px; }
+    .nav .long, .brand small { display: none; }
+    .nav a { font-size: 11px; }
+    .size { display: block; margin: 8px 0 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="./" aria-label="Blobline">
+      <svg viewBox="96 96 832 680" stroke="#142328" fill="#142328" aria-hidden="true"><line x1="729.7" y1="692.4" x2="868.9" y2="687.5"  stroke-width="22.2" stroke-linecap="round"/><line x1="713.7" y1="661.5" x2="868.1" y2="632.1"  stroke-width="24.3" stroke-linecap="round"/><line x1="695.4" y1="634.7" x2="867.1" y2="573.6"  stroke-width="27.4" stroke-linecap="round"/><line x1="675.4" y1="611.6" x2="866.3" y2="508.4"  stroke-width="31.2" stroke-linecap="round"/><line x1="654.2" y1="592.1" x2="866.0" y2="431.3"  stroke-width="35.2" stroke-linecap="round"/><line x1="632.0" y1="575.7" x2="866.4" y2="333.0"  stroke-width="39.1" stroke-linecap="round"/><line x1="609.1" y1="562.4" x2="867.7" y2="195.8"  stroke-width="42.7" stroke-linecap="round"/><line x1="585.5" y1="552.0" x2="777.8" y2="164.5"  stroke-width="45.7" stroke-linecap="round"/><line x1="561.3" y1="544.6" x2="681.1" y2="166.9"  stroke-width="48.1" stroke-linecap="round"/><line x1="536.8" y1="540.1" x2="594.3" y2="168.5"  stroke-width="49.5" stroke-linecap="round"/><line x1="512.0" y1="538.6" x2="512.0" y2="169.0"  stroke-width="50.0" stroke-linecap="round"/><line x1="487.2" y1="540.1" x2="429.7" y2="168.5"  stroke-width="49.5" stroke-linecap="round"/><line x1="462.7" y1="544.6" x2="342.9" y2="166.9"  stroke-width="48.1" stroke-linecap="round"/><line x1="438.5" y1="552.0" x2="246.2" y2="164.5"  stroke-width="45.7" stroke-linecap="round"/><line x1="414.9" y1="562.4" x2="156.3" y2="195.8"  stroke-width="42.7" stroke-linecap="round"/><line x1="392.0" y1="575.7" x2="157.6" y2="333.0"  stroke-width="39.1" stroke-linecap="round"/><line x1="369.8" y1="592.1" x2="158.0" y2="431.3"  stroke-width="35.2" stroke-linecap="round"/><line x1="348.6" y1="611.6" x2="157.7" y2="508.4"  stroke-width="31.2" stroke-linecap="round"/><line x1="328.6" y1="634.7" x2="156.9" y2="573.6"  stroke-width="27.4" stroke-linecap="round"/><line x1="310.3" y1="661.5" x2="155.9" y2="632.1"  stroke-width="24.3" stroke-linecap="round"/><line x1="294.3" y1="692.4" x2="155.1" y2="687.5"  stroke-width="22.2" stroke-linecap="round"/><path d="M 232.0 700.0 A 299.9 299.9 0 0 1 792.0 700.0 Z" /><path d="M 302.0 700.0 A 229.9 229.9 0 0 1 722.0 700.0 Z" class="hole"/><line x1="155" y1="760" x2="869" y2="760"  stroke-width="40" stroke-linecap="round"/></svg>
+      Blobline <small>by Clair Scientific</small>
+    </a>
+    <nav class="nav"><a href="https://www.clairscientific.com">clairscientific.com<span class="long"> →</span></a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow" id="version">Latest version</p>
+    <h1>Condensates, measured.</h1>
+    <p class="lead">Blobline turns Clair Z1 focus stacks into the refractive-index difference and dense-phase concentrations of biomolecular condensates: per droplet, per measurement and pooled, with 95% intervals.</p>
+
+    <div class="downloads">
+      <div class="card" id="card-mac">
+        <h2>macOS</h2>
+        <p class="req">Apple silicon (M1 or later), macOS 11 or later</p>
+        <a class="button solid" id="dl-mac" href="https://github.com/Clair-Scientific/blobline-releases/releases/latest" aria-disabled="false">Download for Mac →</a><span class="size" id="size-mac"></span>
+      </div>
+      <div class="card" id="card-win">
+        <h2>Windows</h2>
+        <p class="req">Windows 10 or 11, 64-bit</p>
+        <a class="button solid" id="dl-win" href="https://github.com/Clair-Scientific/blobline-releases/releases/latest">Download for Windows →</a><span class="size" id="size-win"></span>
+      </div>
+    </div>
+    <p class="meta">Installed copies update themselves. <a href="https://github.com/Clair-Scientific/blobline-releases/releases">All versions</a></p>
+  </div>
+
+  <section class="block">
+    <div class="wrap">
+      <h2>Opening it the first time</h2>
+      <p class="notice">Blobline isn't code-signed yet, so your computer asks before the first launch. This goes away once it's signed.</p>
+      <div class="cols">
+        <div>
+          <h3>On a Mac</h3>
+          <ol>
+            <li>Open the .dmg and drag Blobline into Applications.</li>
+            <li>Open Blobline. When macOS says it can't verify it, click <b>Done</b>.</li>
+            <li>Go to System Settings → Privacy &amp; Security, scroll down and click <b>Open Anyway</b> next to "Blobline was blocked".</li>
+            <li>Open Blobline again and choose <b>Open</b>.</li>
+          </ol>
+        </div>
+        <div>
+          <h3>On Windows</h3>
+          <ol>
+            <li>Run the installer.</li>
+            <li>If Windows says it protected your PC, click <b>More info</b>, then <b>Run anyway</b>.</li>
+            <li>The first start can take a minute while Windows checks the new program.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="whatsnew" hidden>
+    <div class="wrap">
+      <h2>What's new in <span id="whatsnew-version"></span></h2>
+      <p class="notes" id="notes"></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap cols">
+      <div>
+        <h3>No Z1 to hand?</h3>
+        <p style="margin:0;color:var(--grey-700)">Open Blobline and choose <b>Try the demo</b> on the Loading tab. It downloads part of a PEG/DEX measurement (about 410 MB, once) so you can try every step.</p>
+      </div>
+      <div>
+        <h3>Questions</h3>
+        <p style="margin:0;color:var(--grey-700)">Write to <a href="mailto:info@clairscientific.com">info@clairscientific.com</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>Clair Scientific © <span id="year">2026</span> · Hørkær 1A, 2730 Herlev, Denmark · CVR 43839306</div>
+    <div><a href="https://www.clairscientific.com/terms-conditions">Terms</a><a href="https://www.clairscientific.com/privacy-policy">Privacy</a></div>
+  </div>
+</footer>
+
+<script>
+  // The newest release, from GitHub's API (it allows a browser to read it; the release files
+  // themselves don't). Without it the buttons still go to the releases page.
+  const REPO = "Clair-Scientific/blobline-releases";
+  const $ = (id) => document.getElementById(id);
+  const mb = (n) => `${Math.round(n / 1e6)} MB`;
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Put the visitor's own system first.
+  const ua = navigator.userAgent;
+  if (/Windows/.test(ua)) { $("card-win").classList.add("mine"); $("card-win").parentNode.prepend($("card-win")); }
+  else if (/Macintosh|Mac OS X/.test(ua)) { $("card-mac").classList.add("mine"); }
+
+  fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: "application/vnd.github+json" } })
+    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then((rel) => {
+      const version = rel.tag_name.replace(/^v/, "");
+      const date = new Date(rel.published_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+      $("version").textContent = `Version ${version} · ${date}`;
+      const find = (re) => rel.assets.find((a) => re.test(a.name));
+      const mac = find(/macos-arm64\.dmg$/), win = find(/windows-x64-setup\.exe$/);
+      if (mac) { $("dl-mac").href = mac.browser_download_url; $("size-mac").textContent = mb(mac.size); }
+      if (win) { $("dl-win").href = win.browser_download_url; $("size-win").textContent = mb(win.size); }
+      if (rel.body && rel.body.trim()) {
+        $("whatsnew-version").textContent = version;
+        $("notes").textContent = rel.body.trim();
+        $("whatsnew").hidden = false;
+      }
+    })
+    .catch(() => { $("version").textContent = "Latest version"; });
+</script>
+</body>
+</html>
