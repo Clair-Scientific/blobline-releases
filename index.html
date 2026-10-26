@@ -7,7 +7,7 @@
 <meta name="description" content="Download Blobline, Clair Scientific's desktop app for measuring the refractive index and dense-phase concentrations of biomolecular condensates with the Clair Z1.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142328'/%3E%3Cpath d='M14 46 A18 18 0 0 1 50 46 Z' fill='%23c9fac8'/%3E%3Crect x='10' y='49' width='44' height='4' rx='2' fill='%23c9fac8'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/ABCDiatype-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/ABCDiatype-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ABCDiatypeRoundedSemi-Mono-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   /* ABC Diatype, as on www.clairscientific.com (Clair Scientific's licence; copies in fonts/). */
   @font-face { font-family: "ABC Diatype"; src: url(fonts/ABCDiatype-Regular.woff2) format("woff2"); font-weight: 400; font-display: swap; }
@@ -15,154 +15,182 @@
   @font-face { font-family: "ABC Diatype Mono"; src: url(fonts/ABCDiatypeRoundedSemi-Mono-Medium.woff2) format("woff2"); font-weight: 500; font-display: swap; }
   @font-face { font-family: "ABC Diatype Mono"; src: url(fonts/ABCDiatypeRoundedSemi-Mono-Bold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
 
-  /* Colours, corners and buttons from www.clairscientific.com (its Webflow stylesheet). */
+  /* The mAIday page's look (clairscientific.com/maiday, its section-maiday classes). */
   :root {
-    --teal-900: #142328;
-    --grey-700: #40404b;
-    --grey-500: #82828c;
-    --grey-200: #d2d7d7;
-    --grey-50: #fcfcfc;
-    --green-100: #e6fae6;
-    --green-200: #c9fac8;
-    --green-500: #41cc8b;
-    --yellow-100: #fcfce6;
-    --radius: 6px;
+    --teal-900: #142328; --grey-700: #40404b; --grey-500: #82828c; --grey-200: #d2d7d7; --grey-50: #fcfcfc;
+    --green-200: #c9fac8; --green-500: #41cc8b; --blue-100: #e6fafa; --blue-200: #adecec;
+    --radius: 6px; --small: 12px; --body: 16px; --medium: 22px; --large: 42px; --xlarge: 72px;
     --sans: "ABC Diatype", system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "ABC Diatype Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
-  html { background: #fff; }
-  body { margin: 0; overflow-x: hidden; font-family: var(--sans); color: var(--teal-900); background: #fff; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  html { background: var(--grey-50); }
+  body { margin: 0; overflow-x: hidden; background: var(--grey-50); color: var(--grey-700); font-family: var(--sans); font-size: var(--body); line-height: 1.4; -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
-  header { border-bottom: 1px solid var(--grey-200); }
-  .bar { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
-  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
-  .brand svg { height: 22px; width: auto; }
-  .brand svg .hole { fill: #fff; stroke: none; }
-  .brand small { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-500); margin-left: 4px; }
-  .nav a { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--grey-700); }
-  .nav a:hover { color: var(--teal-900); }
+  /* header: the Clair Scientific mark and wordmark; a mint pill */
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 15px; padding-bottom: 15px; }
+  .logo { display: flex; align-items: center; gap: 10px; color: var(--teal-900); text-decoration: none; font-family: var(--mono); font-weight: 700; font-size: var(--body); line-height: 1; text-transform: uppercase; }
+  .logo svg { width: 64px; height: 64px; flex: none; }
+  .pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 31px; padding: 6px 18px; border-radius: 30px; border: 3px solid var(--teal-900);
+    font-family: var(--mono); font-weight: 500; font-size: var(--small); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; color: var(--teal-900); background: transparent; transition: gap 0.15s, background-color 0.15s; }
+  .pill:hover, .pill:focus-visible { gap: 6px; background: var(--green-200); }
+  .pill.mint { background: var(--green-200); border-color: var(--green-200); }
+  .pill .arrow { font-family: var(--sans); }
 
-  .hero { padding-top: 72px; padding-bottom: 48px; }
-  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-500); margin: 0 0 18px; }
-  h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.04; letter-spacing: -0.025em; font-weight: 700; margin: 0 0 18px; max-width: 14ch; }
-  .lead { font-size: 19px; color: var(--grey-700); max-width: 56ch; margin: 0 0 36px; }
+  /* hero */
+  .hero { padding-top: 100px; padding-bottom: 60px; }
+  .eyebrow { margin: 0 0 15px; font-family: var(--mono); font-weight: 500; font-size: var(--body); line-height: 1.1; text-transform: uppercase; color: var(--grey-200); }
+  .hero h1 { margin: 0 0 30px; padding-bottom: 30px; border-bottom: 1px solid var(--grey-200); font-family: var(--mono); font-weight: 500; font-size: var(--xlarge); letter-spacing: 0.05em; line-height: 1.1; color: var(--teal-900); }
+  .hero p.lead { max-width: 46rem; margin: 0; font-size: var(--medium); line-height: 1.3; color: var(--teal-900); }
+  .hero p.lead b { font-weight: 700; }
+  .actions { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
 
-  .downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 760px; }
-  .card { border: 1px solid var(--grey-200); border-radius: var(--radius); padding: 22px 22px 20px; background: var(--grey-50); }
-  .card.mine { background: var(--green-100); border-color: var(--green-200); }
-  .card h2 { font-size: 20px; margin: 0 0 2px; letter-spacing: -0.01em; }
-  .card .req { font-size: 14px; color: var(--grey-500); margin: 0 0 18px; }
-  .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 0 22px;
-    font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
-    color: var(--teal-900); background: transparent; border: 3px solid var(--teal-900); border-radius: 30px; transition: background-color 0.15s; }
-  .button:hover, .button:focus-visible { background: var(--green-200); }
-  .button.solid { background: var(--teal-900); color: #fff; }
-  .button.solid:hover, .button.solid:focus-visible { background: var(--green-200); color: var(--teal-900); }
-  .button[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
-  .size { font-family: var(--mono); font-size: 12px; color: var(--grey-500); margin-left: 12px; }
-  .meta { margin: 22px 0 0; font-size: 14px; color: var(--grey-500); }
-  .meta a { color: var(--grey-700); }
+  /* sections */
+  .section { padding-top: 60px; padding-bottom: 60px; }
+  .section h2 { margin: 0 0 15px; padding-bottom: 15px; border-bottom: 1px solid var(--grey-200); font-family: var(--mono); font-weight: 500; font-size: var(--large); letter-spacing: 0.05em; line-height: 1.1; color: var(--teal-900); }
+  .section p.text { max-width: 46rem; margin: 15px 0 40px; font-size: var(--medium); line-height: 1.3; color: var(--grey-500); }
+  .section p.text b { color: var(--grey-700); }
 
-  section.block { padding: 56px 0; overflow-wrap: anywhere; border-top: 1px solid var(--grey-200); }
-  section.block h2 { font-size: 28px; letter-spacing: -0.015em; margin: 0 0 20px; }
-  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
-  .cols h3 { font-size: 17px; margin: 0 0 8px; }
-  .cols ol, .cols ul { margin: 0; padding-left: 20px; color: var(--grey-700); }
-  .cols li { margin-bottom: 6px; }
-  .notes { white-space: pre-wrap; color: var(--grey-700); max-width: 70ch; margin: 0; }
-  .notice { background: var(--yellow-100); border-radius: var(--radius); padding: 14px 18px; color: var(--grey-700); font-size: 15px; margin: 0 0 24px; max-width: 760px; }
-  code { font-family: var(--mono); font-size: 0.86em; background: #f1f3f3; border-radius: 4px; padding: 1px 5px; }
+  /* the dark window, as mAIday's */
+  .window { border-radius: var(--radius); background: var(--teal-900); color: var(--grey-200); padding: 20px; }
+  .window-head { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding-bottom: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--grey-700); }
+  .window-logo { margin: 0; font-family: var(--mono); font-weight: 500; font-size: var(--medium); letter-spacing: 0.15em; line-height: 1; color: var(--grey-50); }
+  .window-logo span { color: var(--blue-200); }
+  .status { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid var(--grey-700); border-radius: 30px; font-family: var(--mono); font-size: var(--small); letter-spacing: 0.05em; white-space: nowrap; color: var(--green-200); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-200); }
+  .window-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+  .panel { display: flex; flex-direction: column; gap: 12px; padding: 15px; border: 1px solid var(--grey-700); border-radius: var(--radius); }
+  .panel.mine { border-color: var(--blue-200); }
+  .titlebar { display: flex; justify-content: space-between; align-items: baseline; gap: 15px; }
+  .title { margin: 0; font-family: var(--mono); font-weight: 500; font-size: var(--small); letter-spacing: 0.05em; text-transform: uppercase; color: var(--grey-50); }
+  .meta { margin: 0; font-family: var(--mono); font-size: var(--small); letter-spacing: 0.05em; color: var(--blue-200); }
+  .panel p.req { margin: 0 0 6px; line-height: 1.3; }
+  .panel .pill { align-self: flex-start; color: var(--teal-900); }
+  .caption { margin: 10px 0 0; font-size: var(--small); color: var(--grey-500); }
+  .caption a { color: var(--grey-700); }
 
-  footer { border-top: 1px solid var(--grey-200); padding: 32px 0 48px; color: var(--grey-500); font-size: 14px; }
+  /* numbered steps, as mAIday's modules */
+  .steps-head { margin: 0 0 12px; font-family: var(--mono); font-weight: 500; font-size: var(--small); letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-500); }
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 30px; padding: 0; list-style: none; }
+  .steps.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step { background: #fff; border: 1px solid var(--grey-200); border-radius: var(--radius); padding: 15px; }
+  .step .n { display: block; margin-bottom: 6px; font-family: var(--mono); font-size: var(--small); color: var(--grey-500); }
+  .step p { margin: 0; color: var(--teal-900); line-height: 1.35; }
+  .notice { display: flex; gap: 20px; align-items: baseline; border-radius: var(--radius); background: var(--teal-900); color: var(--grey-200); padding: 16px 18px; margin-bottom: 30px; }
+  .notice .label { flex: none; font-family: var(--mono); font-weight: 500; font-size: var(--small); letter-spacing: 0.05em; text-transform: uppercase; color: var(--grey-50); }
+
+  /* what's new: the dark strip */
+  .strip { display: flex; gap: 20px; align-items: baseline; border-radius: var(--radius); background: var(--teal-900); color: var(--grey-200); padding: 18px; }
+  .strip .label { flex: none; font-family: var(--mono); font-weight: 500; font-size: var(--small); letter-spacing: 0.05em; text-transform: uppercase; color: var(--grey-50); }
+  .strip .notes { margin: 0; white-space: pre-wrap; line-height: 1.45; }
+
+  /* the two closing cards, as mAIday's comparison */
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 15px; }
+  .card { border: 1px solid var(--grey-200); border-radius: var(--radius); background: #fff; padding: 20px; }
+  .card.tint { background: var(--blue-100); border-color: var(--blue-200); }
+  .card .kicker { margin: 0 0 10px; font-family: var(--mono); font-size: var(--small); color: var(--grey-500); }
+  .card h3 { margin: 0 0 10px; font-family: var(--mono); font-weight: 500; font-size: var(--medium); letter-spacing: 0.05em; color: var(--teal-900); }
+  .card p { margin: 0; line-height: 1.4; }
+
+  footer { border-top: 1px solid var(--grey-200); padding: 30px 0 48px; font-size: 14px; color: var(--grey-500); }
   .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
   footer a { color: var(--grey-700); text-decoration: none; margin-right: 16px; }
-  footer a:hover { color: var(--teal-900); }
+  footer a:hover { color: var(--green-500); }
 
-  @media (max-width: 600px) {
-    .hero { padding-top: 48px; padding-bottom: 32px; }
-    .nav .long, .brand small { display: none; }
-    .nav a { font-size: 11px; }
-    .size { display: block; margin: 8px 0 0; }
+  @media (max-width: 900px) {
+    .steps, .steps.three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 700px) {
+    :root { --medium: 18px; --large: 28px; --xlarge: 44px; }
+    .hero { padding-top: 60px; padding-bottom: 40px; }
+    .section { padding-top: 40px; padding-bottom: 40px; }
+    .window { padding: 15px; }
+    .window-body, .pair { grid-template-columns: minmax(0, 1fr); }
+    .steps, .steps.three { grid-template-columns: minmax(0, 1fr); }
+    .notice, .strip { flex-direction: column; gap: 8px; }
+    .logo svg { width: 48px; height: 48px; }
   }
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap bar">
-    <a class="brand" href="./" aria-label="Blobline">
-      <svg viewBox="96 96 832 680" stroke="#142328" fill="#142328" aria-hidden="true"><line x1="729.7" y1="692.4" x2="868.9" y2="687.5"  stroke-width="22.2" stroke-linecap="round"/><line x1="713.7" y1="661.5" x2="868.1" y2="632.1"  stroke-width="24.3" stroke-linecap="round"/><line x1="695.4" y1="634.7" x2="867.1" y2="573.6"  stroke-width="27.4" stroke-linecap="round"/><line x1="675.4" y1="611.6" x2="866.3" y2="508.4"  stroke-width="31.2" stroke-linecap="round"/><line x1="654.2" y1="592.1" x2="866.0" y2="431.3"  stroke-width="35.2" stroke-linecap="round"/><line x1="632.0" y1="575.7" x2="866.4" y2="333.0"  stroke-width="39.1" stroke-linecap="round"/><line x1="609.1" y1="562.4" x2="867.7" y2="195.8"  stroke-width="42.7" stroke-linecap="round"/><line x1="585.5" y1="552.0" x2="777.8" y2="164.5"  stroke-width="45.7" stroke-linecap="round"/><line x1="561.3" y1="544.6" x2="681.1" y2="166.9"  stroke-width="48.1" stroke-linecap="round"/><line x1="536.8" y1="540.1" x2="594.3" y2="168.5"  stroke-width="49.5" stroke-linecap="round"/><line x1="512.0" y1="538.6" x2="512.0" y2="169.0"  stroke-width="50.0" stroke-linecap="round"/><line x1="487.2" y1="540.1" x2="429.7" y2="168.5"  stroke-width="49.5" stroke-linecap="round"/><line x1="462.7" y1="544.6" x2="342.9" y2="166.9"  stroke-width="48.1" stroke-linecap="round"/><line x1="438.5" y1="552.0" x2="246.2" y2="164.5"  stroke-width="45.7" stroke-linecap="round"/><line x1="414.9" y1="562.4" x2="156.3" y2="195.8"  stroke-width="42.7" stroke-linecap="round"/><line x1="392.0" y1="575.7" x2="157.6" y2="333.0"  stroke-width="39.1" stroke-linecap="round"/><line x1="369.8" y1="592.1" x2="158.0" y2="431.3"  stroke-width="35.2" stroke-linecap="round"/><line x1="348.6" y1="611.6" x2="157.7" y2="508.4"  stroke-width="31.2" stroke-linecap="round"/><line x1="328.6" y1="634.7" x2="156.9" y2="573.6"  stroke-width="27.4" stroke-linecap="round"/><line x1="310.3" y1="661.5" x2="155.9" y2="632.1"  stroke-width="24.3" stroke-linecap="round"/><line x1="294.3" y1="692.4" x2="155.1" y2="687.5"  stroke-width="22.2" stroke-linecap="round"/><path d="M 232.0 700.0 A 299.9 299.9 0 0 1 792.0 700.0 Z" /><path d="M 302.0 700.0 A 229.9 229.9 0 0 1 722.0 700.0 Z" class="hole"/><line x1="155" y1="760" x2="869" y2="760"  stroke-width="40" stroke-linecap="round"/></svg>
-      Blobline <small>by Clair Scientific</small>
-    </a>
-    <nav class="nav"><a href="https://www.clairscientific.com">clairscientific.com<span class="long"> →</span></a></nav>
-  </div>
+<header class="wrap nav">
+  <a class="logo" href="https://www.clairscientific.com" aria-label="Clair Scientific"><svg aria-hidden="true" viewBox="0 0 271 271" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M178.02 176.543C175.329 179.324 172.385 181.853 169.206 184.074C168.429 184.616 167.617 185.14 166.822 185.645C166.822 185.645 166.786 185.663 166.768 185.682C165.973 186.169 165.178 186.657 164.347 187.108C164.311 187.126 164.275 187.163 164.239 187.181C163.444 187.632 162.632 188.047 161.819 188.463C161.765 188.499 161.692 188.517 161.638 188.553C160.844 188.951 160.031 189.312 159.218 189.673C159.128 189.709 159.037 189.763 158.947 189.799C158.152 190.143 157.358 190.468 156.563 190.757C156.437 190.811 156.328 190.847 156.202 190.901C155.425 191.19 154.63 191.461 153.854 191.714C153.709 191.768 153.547 191.822 153.402 191.876C152.644 192.111 151.867 192.346 151.09 192.545C150.91 192.599 150.729 192.653 150.549 192.707C149.79 192.906 149.031 193.086 148.273 193.249C148.056 193.303 147.839 193.357 147.623 193.393C146.882 193.556 146.123 193.682 145.365 193.809C145.13 193.845 144.895 193.899 144.66 193.935C143.92 194.044 143.161 194.134 142.403 194.224C142.15 194.26 141.897 194.296 141.644 194.315C140.85 194.387 140.055 194.441 139.26 194.495C139.043 194.495 138.809 194.531 138.592 194.549C137.562 194.603 136.551 194.622 135.503 194.622C102.848 194.622 76.3704 168.145 76.3704 135.491C76.3704 102.837 102.848 76.3605 135.503 76.3605C137.4 76.3605 139.278 76.4688 141.12 76.6494C141.319 76.6675 141.518 76.6856 141.716 76.7036C142.511 76.7939 143.306 76.8842 144.101 77.0106C144.353 77.0468 144.624 77.0829 144.877 77.119C145.654 77.2454 146.412 77.3719 147.171 77.5344C147.406 77.5886 147.659 77.6428 147.893 77.6789C148.688 77.8414 149.465 78.022 150.241 78.2207C150.332 78.2388 150.44 78.2749 150.53 78.293C153.131 78.9793 155.678 79.8281 158.134 80.8576C158.297 80.9298 158.477 80.984 158.64 81.0562C159.326 81.3452 160.013 81.6522 160.681 81.9773C160.934 82.1037 161.205 82.2121 161.458 82.3385C162.108 82.6456 162.74 82.9707 163.372 83.3138C163.643 83.4583 163.896 83.6028 164.167 83.7473C164.799 84.0904 165.413 84.4516 166.027 84.8128C166.244 84.9393 166.479 85.0838 166.695 85.2282C168.809 86.5467 170.813 87.9735 172.746 89.5267C172.89 89.6531 173.053 89.7615 173.216 89.8879C173.739 90.3213 174.263 90.7729 174.769 91.2424C175.022 91.4772 175.293 91.694 175.545 91.9287C176.015 92.3622 176.485 92.8137 176.954 93.2652C177.225 93.5361 177.496 93.789 177.749 94.0599C178.201 94.5114 178.634 94.981 179.067 95.4506C179.32 95.7215 179.573 96.0104 179.808 96.2814C180.241 96.769 180.675 97.2566 181.072 97.7443C181.271 97.9971 181.47 98.25 181.668 98.4848C182.066 98.9724 182.463 99.46 182.86 99.9657L268.507 14.6473C271.849 11.2699 271.831 5.83366 268.453 2.49244C265.076 -0.848777 259.639 -0.830717 256.28 2.54662L210.603 48.0594L236.737 13.3469C239.501 9.66252 238.76 4.44299 235.076 1.67971C231.391 -1.08357 226.172 -0.34308 223.408 3.34129L198.538 36.3742L211.903 12.3897C214.143 8.36215 212.68 3.28711 208.652 1.06565C204.624 -1.17387 199.549 0.289043 197.328 4.31657L181.939 31.9313L190.031 10.9809C191.638 6.827 189.561 2.16735 185.407 0.559953C181.253 -1.02938 176.593 1.02953 174.986 5.18348L165.395 30.0349L170.019 9.91537C171.03 5.58081 168.321 1.24626 163.986 0.234861C159.651 -0.758474 155.317 1.93256 154.305 6.26712L149.483 27.2175L151.072 8.45245C151.434 4.17208 148.255 0.397407 143.956 0.0361941C139.676 -0.325019 135.901 2.85365 135.54 7.15209L133.318 26.8021L131.656 7.33269C131.385 3.03426 127.719 -0.216655 123.384 0.0361941C119.086 0.307104 115.816 4.00954 116.087 8.28991L117.388 28.6984L112.638 6.21293C111.753 2.0048 107.635 -0.704292 103.408 0.180679C99.2 1.06565 96.4908 5.18348 97.3758 9.40967L102.379 33.3942L91.849 4.8042C90.4763 1.02953 86.3222 -0.902959 82.5474 0.451589C78.7726 1.8242 76.84 5.97815 78.1946 9.75282L88.7063 39.4445L70.1031 3.99147C68.2428 0.451589 63.8539 -0.92102 60.3138 0.939226C56.7557 2.79947 55.4011 7.18821 57.2614 10.7281L76.3523 48.3123L43.9141 3.0162C41.6745 -0.126352 37.3036 -0.848777 34.1609 1.39074C31.0182 3.63026 30.2958 8.00094 32.5354 11.1435L65.5155 58.354L12.0719 2.27571C9.43489 -0.523686 5.00985 -0.650111 2.19227 1.98674C-0.607241 4.64166 -0.733671 9.06652 1.90329 11.8659L56.7377 68.6486L11.4216 32.1661C8.42345 29.746 4.01647 30.2155 1.59625 33.2136C-0.823978 36.2117 -0.354382 40.6185 2.64381 43.0386L52.5474 83.2416L9.81418 57.6677C6.7618 55.8436 2.7883 56.8369 0.964099 59.8892C-0.860101 62.9414 0.133276 66.9148 3.18565 68.7389L48.6642 95.9382L9.01948 79.1237C5.73231 77.7331 1.95748 79.2682 0.566749 82.5553C-0.823978 85.8423 0.71124 89.617 3.99841 91.0076L47.2735 109.375L8.09835 99.9838C4.64862 99.0988 1.12665 101.194 0.259705 104.643C-0.625303 108.093 1.45176 111.615 4.91954 112.482L48.61 123.661L7.08691 119.562C3.52882 119.218 0.386135 121.819 0.06103 125.377C-0.282136 128.917 2.3187 132.078 5.8768 132.403L51.6444 136.918L5.66006 139.464C2.39095 139.645 -0.101522 142.426 0.0790914 145.695C0.259705 148.838 2.86055 151.276 5.98517 151.276C6.09353 151.276 6.2019 151.276 6.31027 151.276L55.8165 148.531L4.79311 158.717C1.59625 159.385 -0.46275 162.51 0.205521 165.706C0.783486 168.506 3.23983 170.42 5.98517 170.42C6.38252 170.42 6.77987 170.384 7.19528 170.294L61.9393 158.952L3.51076 180.841C0.729302 181.889 -0.679487 184.977 0.368074 187.759C1.18084 189.926 3.22177 191.244 5.4072 191.244C6.03935 191.244 6.6715 191.136 7.28559 190.901L66.9604 168.542L2.66187 204.97C0.205521 206.343 -0.679487 209.449 0.693179 211.924C1.63237 213.603 3.36626 214.542 5.15434 214.542C6.00323 214.542 6.85211 214.326 7.62875 213.892L72.5414 177.572L1.86717 230.851C-0.155707 232.368 -0.553057 235.24 0.964099 237.245C1.86717 238.437 3.23983 239.069 4.6125 239.069C5.56975 239.069 6.83405 238.238 7.64681 237.624L80.9761 182.539L1.4337 262.71C-0.46275 264.588 -0.480812 267.659 1.39757 269.555C2.33676 270.512 3.583 270.982 4.82924 270.982C6.07547 270.982 7.28559 270.512 8.24284 269.573L88.5799 188.589L35.1182 262.439C33.3843 264.841 33.9081 268.201 36.3102 269.952C37.2675 270.639 38.3692 270.982 39.4529 270.982C41.1146 270.982 42.7581 270.205 43.8057 268.76L99.1097 192.364L65.064 263.252C63.7635 265.925 64.8834 269.14 67.5564 270.44C68.315 270.801 69.1097 270.982 69.8864 270.982C71.8912 270.982 73.8057 269.862 74.7268 267.948L109.91 195.362L90.964 264.155C90.1693 267.009 91.849 269.971 94.7027 270.783C95.1904 270.91 95.678 270.982 96.1476 270.982C98.4956 270.982 100.663 269.429 101.331 267.045L120.187 197.764L112.62 265.347C112.313 268.146 114.353 270.675 117.153 270.964C117.334 270.982 117.514 271 117.713 271C120.296 271 122.499 269.068 122.77 266.449L130.121 198.92L134.185 266.142C134.329 268.869 136.587 270.964 139.278 270.964C139.369 270.964 139.459 270.964 139.567 270.964C142.385 270.819 144.552 268.399 144.39 265.582L139.874 198.992L155.01 266.972C155.533 269.356 157.647 270.964 159.995 270.964C160.356 270.964 160.735 270.928 161.114 270.837C163.86 270.223 165.594 267.496 164.98 264.733L150.025 197.854L178.038 267.749C178.833 269.736 180.747 270.964 182.788 270.964C183.42 270.964 184.07 270.837 184.685 270.603C187.303 269.555 188.568 266.575 187.52 263.956L159.399 195.723L201.915 268.435C202.872 270.061 204.57 270.964 206.322 270.964C207.207 270.964 208.092 270.729 208.905 270.26C211.343 268.833 212.156 265.708 210.729 263.27L169.098 192.274L229.224 269.049C230.235 270.314 231.716 270.964 233.215 270.964C234.335 270.964 235.455 270.603 236.394 269.844C238.598 268.092 238.959 264.877 237.207 262.674L177.695 188.029L263.649 269.79C264.48 270.567 265.545 270.964 266.593 270.964C267.731 270.964 268.869 270.512 269.718 269.609C271.343 267.876 271.271 265.166 269.537 263.523L177.984 176.543H178.02Z" fill="currentColor"/>
+</svg><span>Clair<br>Scientific</span></a>
+  <a class="pill mint" href="https://www.clairscientific.com/get-clair">Contact us</a>
 </header>
 
 <main>
-  <div class="wrap hero">
-    <p class="eyebrow" id="version">Latest version</p>
-    <h1>Condensates, measured.</h1>
-    <p class="lead">Blobline turns Clair Z1 focus stacks into the refractive-index difference and dense-phase concentrations of biomolecular condensates: per droplet, per measurement and pooled, with 95% intervals.</p>
-
-    <div class="downloads">
-      <div class="card" id="card-mac">
-        <h2>macOS</h2>
-        <p class="req">Apple silicon (M1 or later), macOS 11 or later</p>
-        <a class="button solid" id="dl-mac" href="https://github.com/Clair-Scientific/blobline-releases/releases/latest" aria-disabled="false">Download for Mac →</a><span class="size" id="size-mac"></span>
-      </div>
-      <div class="card" id="card-win">
-        <h2>Windows</h2>
-        <p class="req">Windows 10 or 11, 64-bit</p>
-        <a class="button solid" id="dl-win" href="https://github.com/Clair-Scientific/blobline-releases/releases/latest">Download for Windows →</a><span class="size" id="size-win"></span>
-      </div>
-    </div>
-    <p class="meta">Installed copies update themselves. <a href="https://github.com/Clair-Scientific/blobline-releases/releases">All versions</a></p>
-  </div>
-
-  <section class="block">
-    <div class="wrap">
-      <h2>Opening it the first time</h2>
-      <p class="notice">Blobline isn't code-signed yet, so your computer asks before the first launch. This goes away once it's signed.</p>
-      <div class="cols">
-        <div>
-          <h3>On a Mac</h3>
-          <ol>
-            <li>Open the .dmg and drag Blobline into Applications.</li>
-            <li>Open Blobline. When macOS says it can't verify it, click <b>Done</b>.</li>
-            <li>Go to System Settings → Privacy &amp; Security, scroll down and click <b>Open Anyway</b> next to "Blobline was blocked".</li>
-            <li>Open Blobline again and choose <b>Open</b>.</li>
-          </ol>
-        </div>
-        <div>
-          <h3>On Windows</h3>
-          <ol>
-            <li>Run the installer.</li>
-            <li>If Windows says it protected your PC, click <b>More info</b>, then <b>Run anyway</b>.</li>
-            <li>The first start can take a minute while Windows checks the new program.</li>
-          </ol>
-        </div>
-      </div>
+  <section class="wrap hero">
+    <p class="eyebrow">Built for the Clair Z1</p>
+    <h1>Blobline</h1>
+    <p class="lead"><b>Condensates, measured.</b> Blobline turns Clair Z1 focus stacks into the refractive-index difference and dense-phase concentrations of biomolecular condensates: per droplet, per measurement and pooled, with 95% intervals.</p>
+    <div class="actions">
+      <a class="pill" id="hero-dl" href="#download"><span class="arrow">→</span> Download</a>
+      <a class="pill" href="https://www.clairscientific.com/get-clair"><span class="arrow">→</span> Talk to us</a>
     </div>
   </section>
 
-  <section class="block" id="whatsnew" hidden>
-    <div class="wrap">
-      <h2>What's new in <span id="whatsnew-version"></span></h2>
-      <p class="notes" id="notes"></p>
+  <section class="wrap section" id="download">
+    <h2>Download</h2>
+    <p class="text">For Mac and Windows. <b>Installed copies update themselves</b>: when there's a new version, Blobline offers it the next time it starts.</p>
+    <div class="window">
+      <div class="window-head">
+        <p class="window-logo">Blob<span>line</span></p>
+        <span class="status"><span class="dot"></span><span id="version">Latest version</span></span>
+      </div>
+      <div class="window-body">
+        <div class="panel" id="panel-mac">
+          <div class="titlebar"><p class="title">macOS</p><p class="meta" id="size-mac"></p></div>
+          <p class="req">Apple silicon (M1 or later), macOS 11 or later.</p>
+          <a class="pill mint" id="dl-mac" href="https://github.com/Clair-Scientific/blobline-releases/releases/latest"><span class="arrow">→</span> Download for Mac</a>
+        </div>
+        <div class="panel" id="panel-win">
+          <div class="titlebar"><p class="title">Windows</p><p class="meta" id="size-win"></p></div>
+          <p class="req">Windows 10 or 11, 64-bit.</p>
+          <a class="pill mint" id="dl-win" href="https://github.com/Clair-Scientific/blobline-releases/releases/latest"><span class="arrow">→</span> Download for Windows</a>
+        </div>
+      </div>
     </div>
+    <p class="caption">Earlier versions are on <a href="https://github.com/Clair-Scientific/blobline-releases/releases">the releases page</a>.</p>
   </section>
 
-  <section class="block">
-    <div class="wrap cols">
-      <div>
-        <h3>No Z1 to hand?</h3>
-        <p style="margin:0;color:var(--grey-700)">Open Blobline and choose <b>Try the demo</b> on the Loading tab. It downloads part of a PEG/DEX measurement (about 410 MB, once) so you can try every step.</p>
+  <section class="wrap section">
+    <h2>Opening it the first time</h2>
+    <p class="text">Blobline isn't code-signed yet, so your computer asks before the first launch. <b>This goes away once it's signed.</b></p>
+    <p class="steps-head">On a Mac</p>
+    <ol class="steps">
+      <li class="step"><span class="n">01</span><p>Open the .dmg and drag Blobline into Applications.</p></li>
+      <li class="step"><span class="n">02</span><p>Open Blobline. When macOS says it can't verify it, click <b>Done</b>.</p></li>
+      <li class="step"><span class="n">03</span><p>In System Settings → Privacy &amp; Security, click <b>Open Anyway</b> next to "Blobline was blocked".</p></li>
+      <li class="step"><span class="n">04</span><p>Open Blobline again and choose <b>Open</b>.</p></li>
+    </ol>
+    <p class="steps-head">On Windows</p>
+    <ol class="steps three">
+      <li class="step"><span class="n">01</span><p>Run the installer.</p></li>
+      <li class="step"><span class="n">02</span><p>If Windows says it protected your PC, click <b>More info</b>, then <b>Run anyway</b>.</p></li>
+      <li class="step"><span class="n">03</span><p>The first start can take a minute while Windows checks the new program.</p></li>
+    </ol>
+  </section>
+
+  <section class="wrap section" id="whatsnew" hidden>
+    <h2>What's new</h2>
+    <div class="strip"><span class="label" id="whatsnew-version"></span><p class="notes" id="notes"></p></div>
+  </section>
+
+  <section class="wrap section">
+    <div class="pair">
+      <div class="card tint">
+        <p class="kicker">No Z1 to hand?</p>
+        <h3>Try the demo</h3>
+        <p>Open Blobline and choose <b>Try the demo</b> on the Loading tab. It downloads part of a PEG/DEX measurement (about 410 MB, once) so you can try every step.</p>
       </div>
-      <div>
-        <h3>Questions</h3>
-        <p style="margin:0;color:var(--grey-700)">Write to <a href="mailto:info@clairscientific.com">info@clairscientific.com</a>.</p>
+      <div class="card">
+        <p class="kicker">Questions</p>
+        <h3>Talk to us</h3>
+        <p>Write to <a href="mailto:info@clairscientific.com">info@clairscientific.com</a>, or <a href="https://www.clairscientific.com/get-clair">get in touch</a>.</p>
       </div>
     </div>
   </section>
@@ -176,35 +204,35 @@
 </footer>
 
 <script>
-  // The newest release, from GitHub's API (it allows a browser to read it; the release files
+  // The newest release, from GitHub's API (it lets a browser read it; the release files
   // themselves don't). Without it the buttons still go to the releases page.
   const REPO = "Clair-Scientific/blobline-releases";
   const $ = (id) => document.getElementById(id);
   const mb = (n) => `${Math.round(n / 1e6)} MB`;
-  document.getElementById("year").textContent = new Date().getFullYear();
+  $("year").textContent = new Date().getFullYear();
 
-  // Put the visitor's own system first.
+  // The visitor's own system first, outlined in the window's accent.
   const ua = navigator.userAgent;
-  if (/Windows/.test(ua)) { $("card-win").classList.add("mine"); $("card-win").parentNode.prepend($("card-win")); }
-  else if (/Macintosh|Mac OS X/.test(ua)) { $("card-mac").classList.add("mine"); }
+  if (/Windows/.test(ua)) { $("panel-win").classList.add("mine"); $("panel-win").parentNode.prepend($("panel-win")); }
+  else if (/Macintosh|Mac OS X/.test(ua)) { $("panel-mac").classList.add("mine"); }
 
   fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: "application/vnd.github+json" } })
     .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
     .then((rel) => {
       const version = rel.tag_name.replace(/^v/, "");
-      const date = new Date(rel.published_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-      $("version").textContent = `Version ${version} · ${date}`;
+      const date = new Date(rel.published_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+      $("version").textContent = `v${version} · ${date}`;
       const find = (re) => rel.assets.find((a) => re.test(a.name));
       const mac = find(/macos-arm64\.dmg$/), win = find(/windows-x64-setup\.exe$/);
-      if (mac) { $("dl-mac").href = mac.browser_download_url; $("size-mac").textContent = mb(mac.size); }
-      if (win) { $("dl-win").href = win.browser_download_url; $("size-win").textContent = mb(win.size); }
+      if (mac) { $("dl-mac").href = mac.browser_download_url; $("size-mac").textContent = `.dmg · ${mb(mac.size)}`; }
+      if (win) { $("dl-win").href = win.browser_download_url; $("size-win").textContent = `.exe · ${mb(win.size)}`; }
       if (rel.body && rel.body.trim()) {
-        $("whatsnew-version").textContent = version;
+        $("whatsnew-version").textContent = `v${version}`;
         $("notes").textContent = rel.body.trim();
         $("whatsnew").hidden = false;
       }
     })
-    .catch(() => { $("version").textContent = "Latest version"; });
+    .catch(() => {});
 </script>
 </body>
 </html>
