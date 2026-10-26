@@ -6,11 +6,15 @@
 <title>Download Blobline · Clair Scientific</title>
 <meta name="description" content="Download Blobline, Clair Scientific's desktop app for measuring the refractive index and dense-phase concentrations of biomolecular condensates with the Clair Z1.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142328'/%3E%3Cpath d='M14 46 A18 18 0 0 1 50 46 Z' fill='%23c9fac8'/%3E%3Crect x='10' y='49' width='44' height='4' rx='2' fill='%23c9fac8'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- The site's own type is ABC Diatype (licensed for clairscientific.com); Geist stands in, as in the app. -->
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/ABCDiatype-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ABCDiatype-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* ABC Diatype, as on www.clairscientific.com (Clair Scientific's licence; copies in fonts/). */
+  @font-face { font-family: "ABC Diatype"; src: url(fonts/ABCDiatype-Regular.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "ABC Diatype"; src: url(fonts/ABCDiatype-Bold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "ABC Diatype Mono"; src: url(fonts/ABCDiatypeRoundedSemi-Mono-Medium.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "ABC Diatype Mono"; src: url(fonts/ABCDiatypeRoundedSemi-Mono-Bold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+
   /* Colours, corners and buttons from www.clairscientific.com (its Webflow stylesheet). */
   :root {
     --teal-900: #142328;
@@ -23,8 +27,8 @@
     --green-500: #41cc8b;
     --yellow-100: #fcfce6;
     --radius: 6px;
-    --sans: "Geist", "ABC Diatype", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: "Geist Mono", "ABC Diatype Mono", ui-monospace, monospace;
+    --sans: "ABC Diatype", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "ABC Diatype Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
   html { background: #fff; }
@@ -52,7 +56,7 @@
   .card h2 { font-size: 20px; margin: 0 0 2px; letter-spacing: -0.01em; }
   .card .req { font-size: 14px; color: var(--grey-500); margin: 0 0 18px; }
   .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 0 22px;
-    font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+    font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
     color: var(--teal-900); background: transparent; border: 3px solid var(--teal-900); border-radius: 30px; transition: background-color 0.15s; }
   .button:hover, .button:focus-visible { background: var(--green-200); }
   .button.solid { background: var(--teal-900); color: #fff; }
